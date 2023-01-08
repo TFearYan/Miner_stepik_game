@@ -1,0 +1,35 @@
+def miner(strs, columns, mines):
+    index_lines = 0
+    field = [[0 for i in range(columns)] for c in range(strs)]
+    for mine in range(mines):
+        print('Укажите координаты мины!')
+        coordinate = tuple(input().split())
+        field[int(coordinate[0]) - 1][int(coordinate[1]) - 1] = 9
+    for line in field:
+        index_columns = 0
+        for column in line:
+            if column == 9:
+                local_index_lines = -1
+                for action in range(3):
+                    local_index_columns = -1
+                    for i in range(3):
+                        if (0 <= index_lines + local_index_lines < strs) and (
+                                0 <= index_columns + local_index_columns < columns):
+                            if field[index_lines + local_index_lines][index_columns + local_index_columns] != 9:
+                                field[index_lines + local_index_lines][index_columns + local_index_columns] += 1
+                        local_index_columns += 1
+                    local_index_lines += 1
+            index_columns += 1
+        index_lines += 1
+    for line in field:
+        print(line)
+
+
+print(f'Укажите кол-во строк!')
+strings = int(input())
+print(f'Укажите кол-во стoлбцов!')
+columns2 = int(input())
+print(f'Укажите кол-во мин!')
+mines2 = int(input())
+
+miner(strings, columns2, mines2)
